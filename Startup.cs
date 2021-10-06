@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GeneralStoreAPI.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -32,6 +34,8 @@ namespace GeneralStoreAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GeneralStoreAPI", Version = "v1" });
             });
+            services.AddHttpsRedirection(options=>options.HttpsPort=443);
+            services.AddDbContext<GeneralStoreDBContext>();//REMEMBER WHEN SCAFFOLDING TO NOT USE THE DEFAULTCONNECTION STRING HERE!
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
